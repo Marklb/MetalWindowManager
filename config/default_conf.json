@@ -1,0 +1,18 @@
+{
+    "global":{
+        "theme-file": "theme-default.css",
+        "default-layout": "Fullscreen"
+    },
+    "menubar":{
+        "visible": true,
+        "bounds":{
+            "x": 5,
+            "y": 5,
+            "width": 1590,
+            "height": 25
+        },
+        "clock":{
+            "visible": true
+        }
+    }
+}

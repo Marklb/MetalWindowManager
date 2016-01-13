@@ -1,0 +1,74 @@
+#layout-body{
+
+}
+
+#layout-body .settings-container{
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  display: block;
+  box-sizing: border-box;
+  border: 2px solid rgba(50, 50, 100, 1);
+  width: 500px;
+  height: 800px;
+  background-color: rgba(50, 50, 50, 1);
+}
+
+#layout-body .settings-container .tile{
+  display: block;
+  box-sizing: border-box;
+  border: 2px solid rgba(50, 50, 100, 1);
+  width: 100%;
+  background-color: rgba(50, 50, 50, 1);
+  padding: 5px;
+  cursor: default;
+  color: rgba(50, 50, 250, 1);
+  margin-bottom: 5px;
+}
+
+#layout-body .settings-container .tile.last{
+  margin-bottom: 0px;
+}
+
+#layout-body .layouts-list{
+  padding: 5px;
+}
+
+#layout-body .active-layout-container{
+  position: absolute;
+  width: 300px;
+  display: block;
+  box-sizing: border-box;
+}
+
+#layout-body .active-layout-container .name-tile{
+  display: block;
+  box-sizing: border-box;
+  border: 2px solid rgba(0, 110, 250, 1);
+  width: 100%;
+  background-color: rgba(50, 50, 50, 1);
+  padding: 5px;
+  cursor: default;
+  color: rgba(0, 110, 250, 1);
+  margin-bottom: 5px;
+}
+
+#layout-body .active-layout-container .layout-selection-tile{
+  display: block;
+  box-sizing: border-box;
+  border: 2px solid rgba(0, 110, 250, 1);
+  width: 100%;
+  background-color: rgba(50, 50, 50, 1);
+  padding: 5px;
+  cursor: default;
+  color: rgba(0, 110, 250, 1);
+  margin-bottom: 5px;
+}
+
+#layout-body .active-layout-container .layout-selection-tile.last{
+  margin-bottom: 0px;
+}
+
+#layout-body .active-layout-container .layout-selection-tile:hover{
+  background-color: rgba(10, 10, 10, 1);
+}

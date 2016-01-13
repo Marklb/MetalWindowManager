@@ -1,0 +1,7 @@
+{
+  "name": "MetalWindowManager",
+  "version": "0.0.1",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.0"
+  }
+}

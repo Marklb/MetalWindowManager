@@ -1,0 +1,33 @@
+{
+  "name": "MetalWindowManager",
+  "version": "0.0.1",
+  "description": "NodeJS Window Manager",
+  "author": "Marklb",
+  "main": "dist/main.html",
+  "window": {
+    "show": false,
+    "frame": true,
+    "toolbar": false
+  },
+  "devDependencies": {
+    "browser-sync": "^2.10.0",
+    "gulp": "^3.9.0",
+    "gulp-sass": "^2.1.1"
+  },
+  "dependencies": {
+    "babel": "^6.3.13",
+    "babel-preset-es2015": "^6.3.13",
+    "bluebird": "^3.1.1",
+    "brightness": "^2.2.0",
+    "get-windows-env": "0.0.3",
+    "gulp-babel": "^6.1.1",
+    "gulp-sass": "^2.1.1",
+    "highlight.js": "^9.0.0",
+    "jquery": "^2.1.4",
+    "jsonfile": "^2.2.3",
+    "moment": "^2.10.6",
+    "q": "^1.4.1",
+    "windows-10-icons": "^1.0.0",
+    "x-windows": "^1.0.0"
+  }
+}
