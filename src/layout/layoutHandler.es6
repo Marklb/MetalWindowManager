@@ -34,8 +34,10 @@ class LayoutHandler {
       frame: false,
       toolbar: false
     });
+    let scrn = gui.Screen.Init();
     this.win.moveTo(0,0);
-    this.win.resizeTo(1600,900);
+    this.win.resizeTo(scrn.screens[0].bounds.width,
+                      scrn.screens[0].bounds.height);
     this.win.setAlwaysOnTop(true);
     this.win.setTransparent(true);
     this.win.setResizable(false);

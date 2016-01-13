@@ -8,6 +8,8 @@ class MbConsole {
     this.lineStartText = '';
     this.linesAdded = [];
 
+    window.document.title = "MB Console";
+
     this.containerElem = window.document.createElement('div');
     this.containerElem.classList.add('mb-console');
 

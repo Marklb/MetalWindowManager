@@ -29,6 +29,8 @@ void GetVirtualDesktopCount(const v8::FunctionCallbackInfo<v8::Value>& args);
 
 void SwitchVirtualDesktop(const v8::FunctionCallbackInfo<v8::Value>& args);
 
+void SwitchWindowToVirtualDesktop(const v8::FunctionCallbackInfo<v8::Value>& args);
+
 HRESULT InitializeVirtualDesktopManager(IVirtualDesktopManager **ppDesktopManager);
 
 HRESULT InitializeVirtualDesktopManagerInternal(IVirtualDesktopManagerInternal **ppDesktopManager);

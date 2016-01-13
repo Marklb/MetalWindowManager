@@ -264,8 +264,7 @@ void mwm_SetForegroundWindow(const v8::FunctionCallbackInfo<v8::Value>& args){
 
 //
 HHOOK _hook;
-LRESULT __stdcall HookMouseCallback(int nCode, WPARAM wParam, LPARAM lParam)
-{
+LRESULT __stdcall HookMouseCallback(int nCode, WPARAM wParam, LPARAM lParam){
     if (nCode >= 0)
     {
         //MessageBox(NULL, "Mouse", "Mouse Info", MB_ICONINFORMATION);
@@ -275,16 +274,14 @@ LRESULT __stdcall HookMouseCallback(int nCode, WPARAM wParam, LPARAM lParam)
     // call the next hook in the hook chain. This is nessecary or your hook chain will break and the hook stops
     return CallNextHookEx(_hook, nCode, wParam, lParam);
 }
-void SetMouseHook()
-{
+void SetMouseHook(){
     if (!(_hook = SetWindowsHookEx(WH_MOUSE_LL, HookMouseCallback, NULL, 0)))  // TODO: HOOK WndProc and look at sending WM_COPYDATA message
     {
         MessageBox(NULL, "Failed to install hook!", "Error", MB_ICONERROR);
     }
 
 }
-void ReleaseMouseHook()
-{
+void ReleaseMouseHook(){
     UnhookWindowsHookEx(_hook);
 }
 void mwm_EnableMouse(const v8::FunctionCallbackInfo<v8::Value>& args){

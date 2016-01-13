@@ -22,7 +22,11 @@ var WindowHandler = (function () {
       if (this.registeredWindows[windowNameKey]) {
         return 'Window with key ' + windowNameKey + ' already exists.';
       } else {
-        this.registeredWindows[windowNameKey] = win;
+        var tmpHwnd = mwmNative.findWindow("+-=-=-=-+NewMetalMarkWindowManagerWindow+-=-=-=-+");
+        this.registeredWindows[windowNameKey] = {
+          nwWindow: win,
+          hwnd: tmpHwnd
+        };
         console.log('Registered Window: ' + windowNameKey);
         return 'Success';
       }
@@ -40,12 +44,9 @@ var WindowHandler = (function () {
     key: 'moveWindowToVirtualDesktop',
     value: function moveWindowToVirtualDesktop(windowNameKey, vDesktopNum) {
       // console.log('Requested to move: '+ windowNameKey);
-      if (this.registeredWindows[windowNameKey]) {
+      if (this.getWindow(windowNameKey)) {
         console.log('Moving window with key ' + windowNameKey + '.');
-        var win = this.registeredWindows[windowNameKey];
-        console.log('Finding window with title: ' + win.title);
-        var hwnd = mwmNative.findWindow(win.title);
-        console.log('HWND: ' + hwnd);
+        console.log('HWND: ' + this.getWindow(windowNameKey).hwnd);
 
         return 'Moving window with key ' + windowNameKey + '.';
       } else {

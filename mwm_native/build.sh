@@ -6,4 +6,5 @@
 
 # or
 
-nw-gyp rebuild --target=0.12.3
+# nw-gyp rebuild --target=0.12.3
+nw-gyp rebuild --target=0.12.5
