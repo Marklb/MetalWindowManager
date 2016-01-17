@@ -62,4 +62,8 @@ function loadBasicConsoleCommands() {
     beforeClose();
   });
   cmdHandler.registerCommand(quitConsoleCmd);
+  var moveLayoutConsoleCmd = new Command('switchDesktop', function () {
+    layoutHandler.moveActiveLayoutWindowToCurrentDekstop();
+  });
+  cmdHandler.registerCommand(moveLayoutConsoleCmd);
 }

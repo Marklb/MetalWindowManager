@@ -22,6 +22,7 @@ var LayoutHandler = (function () {
     this.loadedLayouts = [];
     this.layoutTiles = [];
     this.activeLayout = null;
+    this.wKey = null;
     this.layoutsPath = '../../config/layouts/';
 
     fs.readdir('config/layouts/', function (err, files) {
@@ -57,8 +58,12 @@ var LayoutHandler = (function () {
         // this.win.title = 'Layout | Desktop: '+(vDesktopNum+1);
         console.log('Title: ' + _this2.win.title);
         var winKey = 'Layout-VDesktop:' + (vDesktopNum + 1);
+        _this2.wKey = winKey;
         windowHandler.registerWindow(winKey, _this2.win);
-        windowHandler.moveWindowToVirtualDesktop(winKey, vDesktopNum);
+        console.log('Switching ' + winKey + ' To ' + vDesktopNum);
+        // TODO: Fix
+        // windowHandler.moveWindowToVirtualDesktop(winKey, vDesktopNum);
+        console.log('Done Switching ' + winKey + ' To ' + vDesktopNum);
 
         // Add the elements
         _this2.bodyElem = _this2.win.window.document.getElementById('layout-body');
@@ -139,6 +144,15 @@ var LayoutHandler = (function () {
         this.activeLayout = layout;
         // console.log('Setting default layout to '+this.activeLayout.getName());
       }
+    }
+  }, {
+    key: 'moveActiveLayoutWindowToCurrentDekstop',
+    value: function moveActiveLayoutWindowToCurrentDekstop() {
+      console.log('Switching');
+      // this.win.hide();
+      // this.win.show();
+      // windowHandler.moveWindowToVirtualDesktop(this.wKey);
+      console.log('Done Switching');
     }
   }]);
 

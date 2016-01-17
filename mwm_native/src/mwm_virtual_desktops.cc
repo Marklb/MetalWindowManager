@@ -265,61 +265,61 @@ void SwitchVirtualDesktop(const v8::FunctionCallbackInfo<v8::Value>& args){
 }
 
 void SwitchWindowToVirtualDesktop(const v8::FunctionCallbackInfo<v8::Value>& args){
-  v8::Isolate* isolate = args.GetIsolate();
+    v8::Isolate* isolate = args.GetIsolate();
 
-  int hwndInt = (int)(args[0]->NumberValue());
-  int num = (int)(args[1]->NumberValue());
+    int hwndInt = (int)(args[0]->NumberValue());
+    int num = (int)(args[1]->NumberValue());
 
-  HWND hwnd = (HWND)hwndInt;
+    HWND hwnd = (HWND)hwndInt;
 
-	IVirtualDesktopManager *pDesktopManager = nullptr;
-	InitializeVirtualDesktopManager(&pDesktopManager);
+    IVirtualDesktopManager *pDesktopManager = nullptr;
+    InitializeVirtualDesktopManager(&pDesktopManager);
 
-  GUID desktopId = { 0 };
-  UINT numDesktops;
-  if (FAILED(pDesktops->GetCount(&numDesktops))){
-      MessageBoxEx(NULL, TEXT("Some error occured. It is possible that the internal API has changed."), TEXT("ERROR"), MB_OK | MB_ICONERROR, 0);
-      return;
-  }
+    IVirtualDesktopManagerInternal *pDesktopManagerInternal = nullptr;
+    InitializeVirtualDesktopManagerInternal(&pDesktopManagerInternal);
 
-  UINT desktopNumber = -1;
-  IVirtualDesktop *pDesktop;
-  int i;
-  for(i = 0; i < numDesktops; i++){
-    if(i == num){
-      if(FAILED(pDesktops->GetAt(i, __uuidof(IVirtualDesktop), (void**)&pDesktop))) {
-        MessageBoxEx(NULL, TEXT("Some error occured. It is possible that the internal API has changed."), TEXT("ERROR"), MB_OK | MB_ICONERROR, 0);
+    IObjectArray *pDesktops;
+    if (pDesktopManagerInternal == nullptr || FAILED(pDesktopManagerInternal->GetDesktops(&pDesktops))) {
+        MessageBoxEx(NULL, TEXT("[SwitchWindowToVirtualDesktop]: pDesktopManager was a nullprt or GetDesktops failed."), TEXT("ERROR"), MB_OK | MB_ICONERROR, 0);
         return;
-      }
-      // GUID guid;
-      if(FAILED(pDesktop->GetID(&desktopId))){
-        MessageBoxEx(NULL, TEXT("Some error occured. It is possible that the internal API has changed."), TEXT("ERROR"), MB_OK | MB_ICONERROR, 0);
-        return;
-      }
     }
-  }
 
-  if (FAILED(pDesktopManager->MoveWindowToDesktop(hwnd, &desktopId))) {
-    MessageBoxEx(NULL, TEXT("Some error occured. It is possible that the internal API has changed."), TEXT("ERROR"), MB_OK | MB_ICONERROR, 0);
-    return;
-  }
+    GUID desktopId = { 0 };
+    UINT numDesktops;
+    if (FAILED(pDesktops->GetCount(&numDesktops))){
+        MessageBoxEx(NULL, TEXT("[SwitchWindowToVirtualDesktop]: pDesktops->GetCount failed."), TEXT("ERROR"), MB_OK | MB_ICONERROR, 0);
+        return;
+    }
 
-    // IObjectArray *pDesktops;
-    // if (pDesktopManager == nullptr || FAILED(pDesktopManager->GetDesktops(&pDesktops))) {
-    //     MessageBoxEx(NULL, TEXT("Some error occured. It is possible that the internal API has changed."), TEXT("ERROR"), MB_OK | MB_ICONERROR, 0);
-    //     return;
-    // }
-    //
-    // IVirtualDesktop *pDesktop;
-    // if (FAILED(pDesktops->GetAt(num, __uuidof(IVirtualDesktop), (void**)&pDesktop))) {
-    //     MessageBoxEx(NULL, TEXT("Some error occured. It is possible that the internal API has changed."), TEXT("ERROR"), MB_OK | MB_ICONERROR, 0);
-		// return;
-    // }
-    // if (FAILED(pDesktopManager->SwitchDesktop(pDesktop))) {
-    //     MessageBoxEx(NULL, TEXT("Some error occured. It is possible that the internal API has changed."), TEXT("ERROR"), MB_OK | MB_ICONERROR, 0);
-    // }
+    UINT desktopNumber = -1;
+    IVirtualDesktop *pDesktop;
+    int i;
+    for(i = 0; i < numDesktops; i++){
+        if(i == num){
+            if(FAILED(pDesktops->GetAt(i, __uuidof(IVirtualDesktop), (void**)&pDesktop))) {
+                MessageBoxEx(NULL, TEXT("Some error occured. It is possible that the internal API has changed."), TEXT("ERROR"), MB_OK | MB_ICONERROR, 0);
+                return;
+            }
+            // GUID guid;
+            if(FAILED(pDesktop->GetID(&desktopId))){
+                MessageBoxEx(NULL, TEXT("Some error occured. It is possible that the internal API has changed."), TEXT("ERROR"), MB_OK | MB_ICONERROR, 0);
+                return;
+            }
+        }
+    }
 
-    // args.GetReturnValue().Set(v8::String::NewFromUtf8(isolate, ""));
+    // TODO: Fix
+    REFGUID refGuid = desktopId;
+
+    char tmp[256];
+    GuidToString(refGuid, tmp);
+    sprintf(tmp, "%s  %d", tmp, hwnd);
+    MessageBoxEx(NULL, tmp, TEXT("ERROR"), MB_OK | MB_ICONERROR, 0);
+
+    if (FAILED(pDesktopManager->MoveWindowToDesktop(hwnd, refGuid))) {
+        MessageBoxEx(NULL, TEXT("[SwitchWindowToVirtualDesktop]: pDesktopManager->MoveWindowToDesktop failed."), TEXT("ERROR"), MB_OK | MB_ICONERROR, 0);
+        return;
+    }
 }
 
 HRESULT InitializeVirtualDesktopManager(IVirtualDesktopManager **ppDesktopManager) {
@@ -359,7 +359,7 @@ void init_virtual_desktops(v8::Local<v8::Object> exports) {
     NODE_SET_METHOD(exports, "getMainWindowVirtualDesktopId", GetMainWindowVirtualDesktopId);
     NODE_SET_METHOD(exports, "getMainWindowVirtualDesktopNumber", GetMainWindowVirtualDesktopNumber);
     NODE_SET_METHOD(exports, "isMainWindowOnCurrentVirtualDesktop", IsMainWindowOnCurrentVirtualDesktop);
-    NODE_SET_METHOD(exports, "switchWindowToVirtualDesktop", SwitchWindowToVirtualDesktop);
+    // NODE_SET_METHOD(exports, "switchWindowToVirtualDesktop", SwitchWindowToVirtualDesktop);
 }
 
 }

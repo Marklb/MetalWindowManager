@@ -32,10 +32,32 @@ class WindowHandler {
   }
 
   moveWindowToVirtualDesktop(windowNameKey, vDesktopNum){
+    // TODO: Fix
     // console.log('Requested to move: '+ windowNameKey);
     if(this.getWindow(windowNameKey)){
       console.log('Moving window with key '+windowNameKey+'.');
       console.log('HWND: '+ this.getWindow(windowNameKey).hwnd);
+
+      // mwmNative.switchWindowToVirtualDesktop(this.getWindow(windowNameKey).hwnd, vDesktopNum);
+
+      return 'Moving window with key '+windowNameKey+'.';
+    }else{
+      return 'Window with key '+windowNameKey+' does not exists.';
+      return -1;
+    }
+  }
+
+  moveWindowToCurrentDesktop(windowNameKey){
+    // TODO: Fix this hack
+    // console.log('Requested to move: '+ windowNameKey);
+    if(this.getWindow(windowNameKey)){
+      console.log('Moving window with key '+windowNameKey+'.');
+      console.log('HWND: '+ this.getWindow(windowNameKey).hwnd);
+
+      // mwmNative.switchWindowToVirtualDesktop(this.getWindow(windowNameKey).hwnd, vDesktopNum);
+      // this.getWindow(windowNameKey).nwWindow.hide();
+      // this.getWindow(windowNameKey).nwWindow.show();
+      mwmNative.showWindow(this.getWindow(windowNameKey).hwnd, 5);
 
       return 'Moving window with key '+windowNameKey+'.';
     }else{
